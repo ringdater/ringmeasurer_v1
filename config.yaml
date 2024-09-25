@@ -1,0 +1,62 @@
+---
+paths:
+  drive: "/content/gdrive/MyDrive/2021-07_Rings_Project"
+
+  gcp:
+    project_id: "idsai-2021-shell-segmentation"
+    bucket_name: "idsai-2021-shell-segmentation-data"
+
+  local:
+    base: "C:\\WORK\\IDSAI\\2021-07_Rings_Project"
+    model: "C:\\WORK\\GoogleDrive\\2021-07_Rings_Project\\saved_models"
+
+images:
+  train_dir: "image_train"
+  test_dir: "image_test"
+  train_images:
+    - "GY0023"
+    - "gg06007"
+    - "gg110010"
+    - "gg110013"
+    - "gg110026"
+    - "gg110049"
+    - "gg110053"
+    - "gg110055"
+    - "gg140022"
+    - "gy0030"
+  test_images:
+    - "06003"
+    - "110020"
+    - "110022"
+    - "110056"
+    - "140002"
+    - "140003"
+    - "140004"
+    - "140005"
+    - "140006B"
+    - "140007"
+    - "140013"
+
+unet:
+  input_shape: [256, 256, 3]
+  activation: "relu"
+  output: "sigmoid"
+  kernel: [3, 3]
+  upscale_method: "upsample"
+  filters: [16, 32, 64, 128, 256, 512]
+
+training:
+  empty_patch_proportion: 0.05
+  patch_shape: [256, 256]
+  stride: 64
+  learning_rate: 1.0e-4
+  batch_size: 256
+  epochs: 200
+  checkpoint_every: 5
+  loss: "binary_crossentropy"
+  metrics: ["auc"]
+
+testing:
+  patch_shape: [256, 256]
+  stride: 16
+  batch_size: 128
